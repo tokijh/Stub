@@ -128,8 +128,14 @@ public final class Stub<Arguments, Result>: AnyStub {
 
 extension Stub {
   public struct Execution<Arguments, Result> {
-    public let arguments: Arguments!
+    private let _arguments: Arguments
+    public var arguments: Arguments { self._arguments }
     public let result: Result
+
+    init(arguments: Arguments, result: Result) {
+      self._arguments = arguments
+      self.result = result
+    }
   }
 }
 
