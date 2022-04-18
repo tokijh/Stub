@@ -128,7 +128,7 @@ public final class Stub<Arguments, Result>: AnyStub {
 
 extension Stub {
   public struct Execution<Arguments, Result> {
-    public let arguments: Arguments
+    public let arguments: Arguments!
     public let result: Result
   }
 }
