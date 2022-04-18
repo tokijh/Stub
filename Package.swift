@@ -4,25 +4,15 @@
 import PackageDescription
 
 let package = Package(
-    name: "Stub",
-    products: [
-        // Products define the executables and libraries a package produces, and make them visible to other packages.
-        .library(
-            name: "Stub",
-            targets: ["Stub"]),
-    ],
-    dependencies: [
-        // Dependencies declare other packages that this package depends on.
-        // .package(url: /* package url */, from: "1.0.0"),
-    ],
-    targets: [
-        // Targets are the basic building blocks of a package. A target can define a module or a test suite.
-        // Targets can depend on other targets in this package, and on products in packages this package depends on.
-        .target(
-            name: "Stub",
-            dependencies: []),
-        .testTarget(
-            name: "StubTests",
-            dependencies: ["Stub"]),
-    ]
+  name: "Stub",
+  platforms: [
+    .macOS(.v10_10), .iOS(.v9), .tvOS(.v9), .watchOS(.v2),
+  ],
+  products: [
+    .library(name: "Stub", targets: ["Stub"]),
+  ],
+  targets: [
+    .target(name: "Stub"),
+    .testTarget(name: "StubTests", dependencies: ["Stub"]),
+  ]
 )
