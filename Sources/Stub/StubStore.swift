@@ -72,6 +72,51 @@ extension StubStore {
 }
 
 
+#if swift(>=5.6) && canImport(_Concurrency)
+
+// MARK: AsyncStub
+
+extension StubStore {
+
+  @available(macOS 10.15, iOS 13.0, watchOS 6.0, tvOS 13.0, *)
+  private func asyncStub<Arguments, Result>(
+    privateKey key: PrivateKey,
+    arguments: Arguments.Type,
+    result: Result.Type
+  ) -> AsyncStub<Arguments, Result> {
+    if let stub = stubs[key] as? AsyncStub<Arguments, Result> {
+      return stub
+    } else {
+      let stub = AsyncStub(arguments: arguments, result: result)
+      stubs[key] = stub
+      return stub
+    }
+  }
+
+  @available(macOS 10.15, iOS 13.0, watchOS 6.0, tvOS 13.0, *)
+  public func asyncStub<Arguments, Result>(
+    key: PublicKey,
+    arguments: Arguments.Type,
+    result: Result.Type
+  ) -> AsyncStub<Arguments, Result> {
+    let privateKey = key.toPrivateKey()
+    return asyncStub(privateKey: privateKey, arguments: arguments, result: result)
+  }
+
+  @available(macOS 10.15, iOS 13.0, watchOS 6.0, tvOS 13.0, *)
+  public func asyncStub<Arguments, Result>(
+    arguments: Arguments.Type,
+    result: Result.Type
+  ) -> AsyncStub<Arguments, Result> {
+    let privateKey = PrivateKey.generate(arguments: arguments, result: result)
+    return asyncStub(privateKey: privateKey, arguments: arguments, result: result)
+  }
+
+}
+
+#endif
+
+
 // MARK: Key
 
 extension StubStore.PrivateKey {
