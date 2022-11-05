@@ -1,0 +1,23 @@
+<% puts "// WARNING: This swift file is auto generated. Don't modify this file directly.\n" %>
+<% arguments = 2..20 %>
+
+#if swift(>=5.6) && canImport(_Concurrency)
+
+@available(macOS 10.15, iOS 13.0, watchOS 6.0, tvOS 13.0, *)
+extension AsyncStubProxy {
+
+<%
+  for arg in arguments
+    arguments_range = 1..arg
+
+    arguments_arr = arguments_range.map { |i| "Arg#{i}" }
+    arguments_arr = arguments_arr.join(", ")
+%>
+  public init<Service, <%= arguments_arr %>>(_ function: (Service) -> (<%= arguments_arr %>) async throws -> Result) where Arguments == (<%= arguments_arr %>) {
+    self.init(arguments: Arguments.self, result: Result.self)
+  }
+
+<% end %>
+}
+
+#endif

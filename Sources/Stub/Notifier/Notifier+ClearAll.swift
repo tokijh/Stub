@@ -21,11 +21,11 @@ extension Stub where Arguments == Any, Result == Any {
 }
 
 extension Notifier {
-  fileprivate func clearAll() {
+  func clearAll() {
     notificationCenter.post(name: .clearAll, object: nil)
   }
 
-  fileprivate func observeClearAll(_ handler: @escaping () -> ()) -> Observer {
+  func observeClearAll(_ handler: @escaping () -> ()) -> Observer {
     let observer = notificationCenter.addObserver(
       forName: .clearAll,
       object: nil,
